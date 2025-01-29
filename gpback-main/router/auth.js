@@ -281,7 +281,7 @@ router.post("/aAbBcC/updatedocs",async(req,res)=>{
       
       console.log(email);
       console.log("Grievance Updated Successfully");
-    return res.status(200).json({message:"Message updated"});
+    return res.status(200).json({messgae:"Message updated"});
   }catch(err){
     return res.status(400).json({error:"Could not update"});
   }
