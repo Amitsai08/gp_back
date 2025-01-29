@@ -167,22 +167,24 @@ router.post("/grievance",authenticate,async(req,res)=>{
 })
 
 //grievances list
-router.get("/grievancelist",async(req,res)=>{
-  try{
-    //db.users.find({},{grievances:1}).pretty()
-    const grievanceList=await User.find({grievances:{ "$not": { "$size": 0 } }},{grievances:1});
-    tempList=grievanceList;
+router.get("/grievancelist", async (req, res) => {
+  try {
+    const grievanceList = await User.find(
+      { grievances: { "$not": { "$size": 0 } } },
+      { grievances: 1 }
+    );
 
-    if(!grievanceList){
-      return res.status(400).send();
+    if (!grievanceList || grievanceList.length === 0) {
+      return res.status(400).json({ error: "No grievances found" });
     }
-    else{
-      res.status(200).send(grievanceList);
-    }
-  }catch(err){
+
+    res.status(200).json(grievanceList);  // Correct response with JSON
+  } catch (err) {
     console.log(err);
+    return res.status(500).json({ error: "Server error" });
   }
-})
+});
+
 
 router.get("/education",async(req,res)=>{
   try{
